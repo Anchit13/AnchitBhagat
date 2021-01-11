@@ -1,0 +1,1441 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "J8YLPYXzBis-"
+   },
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "ugctzba-cwLR"
+   },
+   "source": []
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "7gZFnWZ3cwLS"
+   },
+   "source": [
+    "# Let's throw some \"Torch\" on Tensor Operations\n",
+    "\n",
+    "\n",
+    "#### Deep learning allows us to carry out a very wide range of complicated tasks. In order to carry out our tasks effectively, we need a tool which is flexible. Pytorch gives us this option because of its simplicity. It provides accelerated operations using GPU's (Graphical Processing Units). Due to this reason of Pytorch being a high performance library that it has gained its popularity. The below notebook consists of some essential functions which are very useful in carrying out tensor operations. These operations are used for multi-dimensional tensors & for arithematic operations.\n",
+    "\n",
+    "- General Ops - Inverse\n",
+    "- Creation Ops - Complex\n",
+    "- Arithematic Ops - Transpose\n",
+    "- Mutating Ops - Add\n",
+    "- Reduction Ops - Amax\n",
+    "\n",
+    "Before we begin, let's install and import PyTorch"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "i0XoMY2NcwLT"
+   },
+   "outputs": [],
+   "source": [
+    "# Uncomment and run the appropriate command for your operating system, if required\n",
+    "\n",
+    "# Linux / Binder\n",
+    "# !pip install numpy torch==1.7.0+cpu torchvision==0.8.1+cpu torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html\n",
+    "\n",
+    "# Windows\n",
+    "# !pip install numpy torch==1.7.0+cpu torchvision==0.8.1+cpu torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html\n",
+    "\n",
+    "# MacOS\n",
+    "# !pip install numpy torch torchvision torchaudio"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "e98VNgxjcwLT"
+   },
+   "outputs": [],
+   "source": [
+    "# Import torch and other required modules\n",
+    "import torch"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "IGNLwRIOcwLT"
+   },
+   "source": [
+    "# General Operations - Inverse Function\n",
+    "First function we will be using is the 'Inverse' function. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 52,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1212,
+     "status": "ok",
+     "timestamp": 1609574474050,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "dLScefAMcwLT",
+    "outputId": "7870ba42-4b18-4498-f564-a4f089d76261"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[[ 0.5217, -0.0345, -0.5458],\n",
+      "         [-1.4631, -0.0165,  0.6800],\n",
+      "         [-2.9073,  0.8918, -1.1383]],\n",
+      "\n",
+      "        [[ 0.5283, -0.7287,  2.4362],\n",
+      "         [ 0.1686,  1.0121, -1.4989],\n",
+      "         [ 0.9397,  0.4789,  1.0346]]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[ -1.0546,  -0.9439,  -0.0582],\n",
+       "         [ -6.5365,  -3.9133,   0.7964],\n",
+       "         [ -2.4275,  -0.6551,  -0.1059]],\n",
+       "\n",
+       "        [[-51.3468, -55.8782,  39.9567],\n",
+       "         [ 46.0564,  50.7072, -34.9906],\n",
+       "         [ 25.3218,  27.2852, -19.1313]]])"
+      ]
+     },
+     "execution_count": 52,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.randn(2,3,3)\n",
+    "print(a)\n",
+    "torch.inverse(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "fZWGYWUVcwLU"
+   },
+   "source": [
+    "The above 'randn' function has created 3X3 square matrix with 2 outer most rows. The 'inverse' function then takes the inverse of the individual elements of the matrix"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 38,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1204,
+     "status": "ok",
+     "timestamp": 1609573959663,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "YJEIQY6OcwLV",
+    "outputId": "711f3917-a87a-4514-fda2-86f2606cf3b0"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.5455, 0.0565, 0.4379, 0.5400],\n",
+      "        [0.1444, 0.1011, 0.0254, 0.4051],\n",
+      "        [0.0388, 0.3091, 0.7329, 0.4145],\n",
+      "        [0.1271, 0.7471, 0.2127, 0.8929]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[ 2.8819, -4.4881, -1.9086,  1.1790],\n",
+       "        [ 1.0057, -5.6973, -1.1293,  2.5006],\n",
+       "        [ 0.1517, -0.4817,  1.4488, -0.5457],\n",
+       "        [-1.2879,  5.5210,  0.8715, -1.0103]])"
+      ]
+     },
+     "execution_count": 38,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.rand(4,4)\r\n",
+    "print(a)\r\n",
+    "torch.inverse(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "ifDOdCnkcwLV"
+   },
+   "source": [
+    "The above is 4X4 square matrix where each element is inversed using the inverse function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 260
+    },
+    "executionInfo": {
+     "elapsed": 1077,
+     "status": "error",
+     "timestamp": 1609572362901,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "UNKo3In0cwLV",
+    "outputId": "7487395c-43a3-4304-d02b-764f9e4dcec5"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.8308, 0.6842, 0.6373],\n",
+      "        [0.8830, 0.2314, 0.3287],\n",
+      "        [0.6455, 0.4507, 0.4353],\n",
+      "        [0.6086, 0.2567, 0.1331]])\n"
+     ]
+    },
+    {
+     "ename": "RuntimeError",
+     "evalue": "ignored",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-22-df67ab3379ee>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrand\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m4\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0minverse\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m: A must be batches of square matrices, but they are 3 by 4 matrices"
+     ]
+    }
+   ],
+   "source": [
+    "a = torch.rand(4,3)\n",
+    "print(a)\n",
+    "torch.inverse(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "1gitKIM6cwLW"
+   },
+   "source": [
+    "'Inverse' function gives the inverse of the individual elements of the matrix. The above error is due to the fact that the matrix is not square. By changing the dimensions, one can obtain the correct result."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "6MQ1sGnlcwLW"
+   },
+   "source": [
+    "Inverse function can be used to inverse the Pytorch neural network "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "ebZMzgWxcwLW"
+   },
+   "source": [
+    "Let's save our work using Jovian before continuing."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "uZQOLOcccwLW"
+   },
+   "outputs": [],
+   "source": [
+    "!pip install jovian --upgrade --quiet"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "GdmacJmdcwLW"
+   },
+   "outputs": [],
+   "source": [
+    "import jovian"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 101
+    },
+    "executionInfo": {
+     "elapsed": 5282,
+     "status": "ok",
+     "timestamp": 1609577310664,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "VT8IekHfcwLX",
+    "outputId": "bdb3dc0a-12e6-443a-b38c-9621b19cb1b9"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Detected Colab notebook...\u001b[0m\n",
+      "[jovian] Uploading colab notebook to Jovian...\u001b[0m\n",
+      "[jovian] Capturing environment..\u001b[0m\n",
+      "[jovian] Committed successfully! https://jovian.ai/anchitbhagat13/assign01-tensor-operations\u001b[0m\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "type": "string"
+      },
+      "text/plain": [
+       "'https://jovian.ai/anchitbhagat13/assign01-tensor-operations'"
+      ]
+     },
+     "execution_count": 103,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "jovian.commit(project='Assign01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "5mvqdCe8cwLX"
+   },
+   "source": [
+    "# Creation Operations - Complex\n",
+    "### Lets use functions for initialising working on tensor data by creating vector or matrix. Here we will be using complex function."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 59,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1130,
+     "status": "ok",
+     "timestamp": 1609575039614,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "3FHPSsMEcwLX",
+    "outputId": "550e895e-987f-4531-ec82-183d6c64c6f4"
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "torch.complex64"
+      ]
+     },
+     "execution_count": 59,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "real = torch.tensor([2,1], dtype=torch.float32)\r\n",
+    "imag = torch.tensor([2,3], dtype=torch.float32)\r\n",
+    "a= torch.complex(real, imag)\r\n",
+    "a.dtype"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "zWw9ki-mcwLX"
+   },
+   "source": [
+    "In order to get the resultant complex64, we need to input float32 type."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 54,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1149,
+     "status": "ok",
+     "timestamp": 1609574761282,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "FS-vEYlBcwLX",
+    "outputId": "00e14adb-71d0-480b-ba54-59fe4dd76a51"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.6244, 0.7747, 0.4000],\n",
+      "        [0.0883, 0.8623, 0.3655]])\n",
+      "tensor([[0.9189, 0.6012, 0.5987]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0.6244+0.9189j, 0.7747+0.6012j, 0.4000+0.5987j],\n",
+       "        [0.0883+0.9189j, 0.8623+0.6012j, 0.3655+0.5987j]])"
+      ]
+     },
+     "execution_count": 54,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "real = torch.rand(2,3)\r\n",
+    "imag = torch.rand(1,3)\r\n",
+    "print(real)\r\n",
+    "print(imag)\r\n",
+    "x = torch.complex(real, imag,)\r\n",
+    "x"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "cmsBxDgkcwLY"
+   },
+   "source": [
+    "Here, we have created 'real' & 'imag' named tensors using rand function. Using the 'complex' function we have joined the two tensors & formed a single equation having real & imaginary numbers"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 210
+    },
+    "executionInfo": {
+     "elapsed": 1050,
+     "status": "error",
+     "timestamp": 1609482979513,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "VcgqAr7jcwLY",
+    "outputId": "2a356a83-70f6-4762-b00a-8492a8d017f7"
+   },
+   "outputs": [
+    {
+     "ename": "TypeError",
+     "evalue": "ignored",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-32-00236224411d>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mreal\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtensor\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m2.\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m4\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mimag\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtensor\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m7.\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mx\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcomplex\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mreal\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mimag\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0mx\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mTypeError\u001b[0m: tensor() takes 1 positional argument but 2 were given"
+     ]
+    }
+   ],
+   "source": [
+    "real = torch.tensor(2., 4)\r\n",
+    "imag = torch.tensor(7., 3)\r\n",
+    "x = torch.complex(real, imag,)\r\n",
+    "x"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "b7CXElbWcwLY"
+   },
+   "source": [
+    "Here, instead of creating a complex tensor with two values 'real' & 'imag' data, it is trying to create a single complex tensor. We could see the above error just because of missing a single square bracket that would have given us the required result."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "6R_GLL-2cwLY"
+   },
+   "source": [
+    "We can use the above function for creating complex tensors consisting of real & imaginary data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 101
+    },
+    "executionInfo": {
+     "elapsed": 5844,
+     "status": "ok",
+     "timestamp": 1609577318481,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "VRzZOX3pcwLY",
+    "outputId": "389e4568-e6fb-46d8-bfe4-9c0297874406"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Detected Colab notebook...\u001b[0m\n",
+      "[jovian] Uploading colab notebook to Jovian...\u001b[0m\n",
+      "[jovian] Capturing environment..\u001b[0m\n",
+      "[jovian] Committed successfully! https://jovian.ai/anchitbhagat13/assign01-tensor-operations\u001b[0m\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "type": "string"
+      },
+      "text/plain": [
+       "'https://jovian.ai/anchitbhagat13/assign01-tensor-operations'"
+      ]
+     },
+     "execution_count": 104,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "jovian.commit(project='Assign01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "AyA8OT8dcwLZ"
+   },
+   "source": [
+    "# Mutating Tensor Data - Transpose\n",
+    "\n",
+    "#### Here we will use transpose function to work on mutating tensor data for making our operations easy. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1161,
+     "status": "ok",
+     "timestamp": 1609577128250,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "jFG2KmyRcwLZ",
+    "outputId": "9bf55350-7ac0-43f8-c792-37ee1280d106"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[[0.2048, 0.7677, 0.3412, 0.6454, 0.7948],\n",
+      "         [0.4884, 0.0219, 0.4114, 0.4093, 0.9097],\n",
+      "         [0.5427, 0.2225, 0.7833, 0.7160, 0.1520]],\n",
+      "\n",
+      "        [[0.9961, 0.2452, 0.0970, 0.4493, 0.3203],\n",
+      "         [0.3593, 0.1574, 0.5670, 0.2028, 0.1010],\n",
+      "         [0.7321, 0.4422, 0.3533, 0.7754, 0.0798]]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[[0.2048, 0.4884, 0.5427],\n",
+       "         [0.7677, 0.0219, 0.2225],\n",
+       "         [0.3412, 0.4114, 0.7833],\n",
+       "         [0.6454, 0.4093, 0.7160],\n",
+       "         [0.7948, 0.9097, 0.1520]],\n",
+       "\n",
+       "        [[0.9961, 0.3593, 0.7321],\n",
+       "         [0.2452, 0.1574, 0.4422],\n",
+       "         [0.0970, 0.5670, 0.3533],\n",
+       "         [0.4493, 0.2028, 0.7754],\n",
+       "         [0.3203, 0.1010, 0.0798]]])"
+      ]
+     },
+     "execution_count": 99,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.rand(2,3,5)\r\n",
+    "print(a)\r\n",
+    "torch.transpose(a,1,2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "r8hWDcCKcwLZ"
+   },
+   "source": [
+    "From the outer most row1, we have trasposed all the elements of the first row. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 82,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1030,
+     "status": "ok",
+     "timestamp": 1609576456524,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "p9bFnT8zcwLZ",
+    "outputId": "42134695-1834-4328-e2ac-3ded0c7b3f50"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.3881, 0.0877, 0.9135, 0.2411, 0.4684],\n",
+      "        [0.4295, 0.6453, 0.4643, 0.6952, 0.9371]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([[0.3881, 0.4295],\n",
+       "        [0.0877, 0.6453],\n",
+       "        [0.9135, 0.4643],\n",
+       "        [0.2411, 0.6952],\n",
+       "        [0.4684, 0.9371]])"
+      ]
+     },
+     "execution_count": 82,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.rand(2,5)\r\n",
+    "print(a)\r\n",
+    "torch.transpose(a, -1, 0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "uf-MTWHwcwLZ"
+   },
+   "source": [
+    "Here we are giving the first dimension & the second dimension to be transposed."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 260
+    },
+    "executionInfo": {
+     "elapsed": 1016,
+     "status": "error",
+     "timestamp": 1609484938615,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "Akjn8I9AcwLZ",
+    "outputId": "7ecb4099-1bc7-426e-8a66-91b0a86ac63c"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.7510, 0.5165, 0.7275, 0.6648, 0.9342],\n",
+      "        [0.6374, 0.2274, 0.3863, 0.9643, 0.4372]])\n"
+     ]
+    },
+    {
+     "ename": "TypeError",
+     "evalue": "ignored",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-54-d6efe24975aa>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrand\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtranspose\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mTypeError\u001b[0m: transpose() received an invalid combination of arguments - got (Tensor), but expected one of:\n * (Tensor input, name dim0, name dim1)\n * (Tensor input, int dim0, int dim1)\n"
+     ]
+    }
+   ],
+   "source": [
+    "a = torch.rand(2,5)\r\n",
+    "print(a)\r\n",
+    "torch.transpose(a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "5hVIuR9QcwLa"
+   },
+   "source": [
+    "While using the transpose function on the tensor data, we also have to pass the dimensions in order to clarify which dimensions need to be transposed. The above function would have worked accurately if we have used 't' instead of 'transpose' function. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "eqcc_PmQcwLa"
+   },
+   "source": [
+    "We can use 'transpose' function when we have to tranpose the given dimensions of tensor data while specifying whichn dimensions need to be transposed"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 105,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 101
+    },
+    "executionInfo": {
+     "elapsed": 5354,
+     "status": "ok",
+     "timestamp": 1609577324524,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "pHrC9h6XcwLa",
+    "outputId": "087bb7bf-29d2-4727-be1a-3d26548bbab1"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Detected Colab notebook...\u001b[0m\n",
+      "[jovian] Uploading colab notebook to Jovian...\u001b[0m\n",
+      "[jovian] Capturing environment..\u001b[0m\n",
+      "[jovian] Committed successfully! https://jovian.ai/anchitbhagat13/assign01-tensor-operations\u001b[0m\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "type": "string"
+      },
+      "text/plain": [
+       "'https://jovian.ai/anchitbhagat13/assign01-tensor-operations'"
+      ]
+     },
+     "execution_count": 105,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "jovian.commit(project='Assign01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "Kn8bmeQqcwLa"
+   },
+   "source": [
+    "# Arithematic Operations - Add\n",
+    "#### Lets perform some arithematic operations - add function on our tensor data."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 63,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1236,
+     "status": "ok",
+     "timestamp": 1609575402000,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "tAtsFDLxcwLa",
+    "outputId": "3fcfa7bf-b322-4d39-ce1a-fd7dc44b2d59"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([-1.2225, -0.9015,  1.8587, -1.0293,  0.3524,  0.5387,  0.2047,  2.0947,\n",
+      "        -1.2131,  0.4017])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([3.7775, 4.0985, 6.8587, 3.9707, 5.3524, 5.5387, 5.2047, 7.0947, 3.7869,\n",
+       "        5.4017])"
+      ]
+     },
+     "execution_count": 63,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.randn(10)\r\n",
+    "print(a)\r\n",
+    "torch.add(a,5)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "FOIPHVEocwLb"
+   },
+   "source": [
+    "The second attribute (5 in above case) should be an integer which must be added to the tensor data (a in above case). The resultant will be the sum of two."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 62,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1203,
+     "status": "ok",
+     "timestamp": 1609575378594,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "GtOUGEixcwLb",
+    "outputId": "ddad1242-3c5f-4a4e-faf5-8e22fbb4556b"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([0.0415, 0.9894, 0.6298, 0.3113, 0.6423])\n",
+      "tensor([0.3046, 0.0674, 0.4729, 0.0166, 0.6203])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([0.3462, 1.0568, 1.1027, 0.3279, 1.2626])"
+      ]
+     },
+     "execution_count": 62,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.rand(5)\r\n",
+    "b = torch.rand(5)\r\n",
+    "print(a)\r\n",
+    "print(b)\r\n",
+    "torch.add(a,b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "ON6CoEQCcwLb"
+   },
+   "source": [
+    "'Add' function computes the sum of two tensor data of the same dimensions & gives the result in the same dimension."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 194
+    },
+    "executionInfo": {
+     "elapsed": 1005,
+     "status": "error",
+     "timestamp": 1609485529706,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "_9umkBrxcwLb",
+    "outputId": "75c6b33a-d3a9-4aea-dadf-91a4ca075add"
+   },
+   "outputs": [
+    {
+     "ename": "RuntimeError",
+     "evalue": "ignored",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-62-23521c306eaf>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrand\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mb\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrand\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0madd\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0mb\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mRuntimeError\u001b[0m: The size of tensor a (10) must match the size of tensor b (5) at non-singleton dimension 0"
+     ]
+    }
+   ],
+   "source": [
+    "a = torch.rand(10)\r\n",
+    "b = torch.rand(5)\r\n",
+    "torch.add(a,b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "8lGvq9tUcwLb"
+   },
+   "source": [
+    "While performing any arithematic operations in tensor, we need to take care that the dimensions of the input tensors matches each other. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "MfWshtbMcwLb"
+   },
+   "source": [
+    "'Add' function can be used to add any two given tensors, or also to add a tensor data with a given number."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 106,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 101
+    },
+    "executionInfo": {
+     "elapsed": 4153,
+     "status": "ok",
+     "timestamp": 1609577330253,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "mVJclYjWcwLc",
+    "outputId": "2d19e238-27ba-43a6-9c4f-f137cde96549"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Detected Colab notebook...\u001b[0m\n",
+      "[jovian] Uploading colab notebook to Jovian...\u001b[0m\n",
+      "[jovian] Capturing environment..\u001b[0m\n",
+      "[jovian] Committed successfully! https://jovian.ai/anchitbhagat13/assign01-tensor-operations\u001b[0m\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "type": "string"
+      },
+      "text/plain": [
+       "'https://jovian.ai/anchitbhagat13/assign01-tensor-operations'"
+      ]
+     },
+     "execution_count": 106,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "jovian.commit(project='Assign01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "5XZSqKbacwLc"
+   },
+   "source": [
+    "# Reduction Operations - amax\n",
+    "\n",
+    "#### Using certain Reduction operations - amax. These will help in performing statistical operations on our tensor data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 79,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 1144,
+     "status": "ok",
+     "timestamp": 1609576226287,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "ZZRlHbGZcwLc",
+    "outputId": "f7a42497-8425-4e56-b712-712f4f29d999"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[0.8920, 0.1855],\n",
+      "        [0.4460, 0.5522],\n",
+      "        [0.2405, 0.1536]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([0.8920, 0.5522, 0.2405])"
+      ]
+     },
+     "execution_count": 79,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.rand(3,2)\r\n",
+    "print(a)\r\n",
+    "torch.amax(a, dim = -1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "C5AB_wRYcwLc"
+   },
+   "source": [
+    "Here, 'amax' function is used to give the maximum element in the each dimension, where '-1' shows the dimension to be reduced"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/"
+    },
+    "executionInfo": {
+     "elapsed": 793,
+     "status": "ok",
+     "timestamp": 1609488664115,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "R10wQQVFcwLc",
+    "outputId": "4ebdf70b-4592-4439-d16b-fc1b1aeec2bc"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([[3, 2],\n",
+      "        [1, 2],\n",
+      "        [4, 7],\n",
+      "        [6, 5]])\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "tensor([3, 2, 7, 6])"
+      ]
+     },
+     "execution_count": 93,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "a = torch.tensor([[3,2], [1,2], [4,7],[6,5]])\r\n",
+    "print(a)\r\n",
+    "torch.amax(a, dim = 1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "FvTL3xEgcwLc"
+   },
+   "source": [
+    "'amax' function gives us the maximum value in the tensor data for each for each slice."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 70,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 210
+    },
+    "executionInfo": {
+     "elapsed": 987,
+     "status": "error",
+     "timestamp": 1609575940524,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "y3oNGKkfcwLd",
+    "outputId": "e7a6a1a6-908a-48a4-af55-2b40b0c38f3a"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "tensor([0.8910, 0.7368, 0.7915, 0.9156, 0.1040])\n"
+     ]
+    },
+    {
+     "ename": "IndexError",
+     "evalue": "ignored",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m                                Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-70-40562a357584>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0ma\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mrand\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;36m5\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 3\u001b[0;31m \u001b[0mtorch\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mamax\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0ma\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mdim\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m2\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;31mIndexError\u001b[0m: Dimension out of range (expected to be in range of [-1, 0], but got -2)"
+     ]
+    }
+   ],
+   "source": [
+    "a = torch.rand(5)\r\n",
+    "print(a)\r\n",
+    "torch.amax(a, dim=-2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "SGiivOaLcwLd"
+   },
+   "source": [
+    "The dimensions of amax function varies from -1 to 0. Hence, 'dim' attribute must be within this range."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "metadata": {
+    "colab": {
+     "base_uri": "https://localhost:8080/",
+     "height": 101
+    },
+    "executionInfo": {
+     "elapsed": 6348,
+     "status": "ok",
+     "timestamp": 1609577341056,
+     "user": {
+      "displayName": "Anchit Bhagat",
+      "photoUrl": "https://lh3.googleusercontent.com/a-/AOh14GgDeMY1AsmZzbqI016b8nT7h8x0p2uxS_qs3vdRuA=s64",
+      "userId": "02965288718899045384"
+     },
+     "user_tz": -330
+    },
+    "id": "61MJBf3WcwLd",
+    "outputId": "87a889df-549e-48be-f83d-54d23bd7b76f"
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Detected Colab notebook...\u001b[0m\n",
+      "[jovian] Uploading colab notebook to Jovian...\u001b[0m\n",
+      "[jovian] Capturing environment..\u001b[0m\n",
+      "[jovian] Committed successfully! https://jovian.ai/anchitbhagat13/assign01-tensor-operations\u001b[0m\n"
+     ]
+    },
+    {
+     "data": {
+      "application/vnd.google.colaboratory.intrinsic+json": {
+       "type": "string"
+      },
+      "text/plain": [
+       "'https://jovian.ai/anchitbhagat13/assign01-tensor-operations'"
+      ]
+     },
+     "execution_count": 107,
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "jovian.commit(project='Assign01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "w_Qr8JqjcwLd"
+   },
+   "source": [
+    "## Conclusion\n",
+    "In this topic, we have covered the necessary functions from creation of tensor data to carrying out arithematic operations. We have also carried out mutating operations which are very much necessary for the general understanding."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "r0e7NyiCcwLe"
+   },
+   "source": [
+    "## Reference Links\n",
+    "Provide links to your references and other interesting articles about tensors\n",
+    "* Official documentation for tensor operations: https://pytorch.org/docs/stable/torch.html\n",
+    "* https://pytorch.org/assets/deep-learning/Deep-Learning-with-PyTorch.pdf"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "z1o0oPCbcwLe",
+    "outputId": "41776934-36b7-401c-8aed-17a0ddeacae6"
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/javascript": [
+       "window.require && require([\"base/js/namespace\"],function(Jupyter){Jupyter.notebook.save_checkpoint()})"
+      ],
+      "text/plain": [
+       "<IPython.core.display.Javascript object>"
+      ]
+     },
+     "metadata": {
+      "tags": []
+     },
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[jovian] Attempting to save notebook..\u001b[0m\n"
+     ]
+    }
+   ],
+   "source": [
+    "jovian.commit(project='01-tensor-operations')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "id": "kRLrmD1OcwLe"
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "colab": {
+   "name": "01-tensor-operations.ipynb",
+   "provenance": []
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
